@@ -1,0 +1,39 @@
+ACEH.pau = function(game){};
+var sprite1;
+var sprite2;
+ACEH.pau.prototype = {
+ create:function() {
+ this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    this.stage.backgroundColor = '#2d2d2d';
+
+    sprite1 = this.add.sprite(100, 50, 'sprite1');
+    sprite2 = this.add.sprite(50, 450, 'sprite1');
+
+    this.physics.arcade.enable([ sprite1, sprite2 ], Phaser.Physics.ARCADE);
+
+    this.add.tween(sprite1.body).to( { y: 400 }, 3000, Phaser.Easing.Linear.None, true);
+},
+
+update:function() {
+
+   this.physics.arcade.overlap(sprite1, sprite2, this.overlapHandler, this,0,1,0,1);
+
+},
+ overlapHandler:function(obj1, obj2) {
+
+    this.game.backgroundColor = '#992d2d';
+
+    this.obj2.kill();
+
+},
+render:function () {
+
+    this.debug.body(sprite1);
+    this.debug.body(sprite2);
+
+}
+
+    };
+
+

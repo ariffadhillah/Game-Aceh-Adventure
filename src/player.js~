@@ -1,0 +1,9 @@
+ACEH.lagu = function(game){};
+
+
+ACEH.lagu.prototype = {
+create:function(){
+this.physics.startSystem(Phaser.Physics.ARCADE);
+
+    }
+};

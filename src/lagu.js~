@@ -1,0 +1,16 @@
+ACEH.lagu = function(game){};
+
+
+ACEH.lagu.prototype = {
+create:function(){
+this.physics.startSystem(Phaser.Physics.ARCADE);
+
+this.state.start('lagu');
+},
+
+lagu:function(){
+music = this.add.audio("music",1,true);
+          music.play("",0,1,true);
+}
+
+};

@@ -1,0 +1,77 @@
+ACEH.loding = function(game){
+
+};    
+ACEH.loding.prototype = {
+    preload:function(){
+
+
+        //this.stage.backgroundImage(0,0,'ltrblkng') //= '#B4D9E7';
+        var ltrblkng = this.add.image(-20,50,'ltrblkng');
+		huruf = this.add.text(200, 150,'L O D I N G', { font: "bold 12pt Ubuntu", fill: "white", align: "center" } );
+		this.preloadBar = this.add.sprite(85,100, 'preloaderBar');
+        this.load.setPreloadSprite(this.preloadBar);
+        this.load.image('background', 'asset/background.png');
+        this.load.image('backgroundpertama', 'asset/backgroundpertama.png');
+	this.load.image('lanjut', 'asset/lanjut.png');
+        this.load.image('pintu', 'asset/pintusatu.png');
+        this.load.image('daun', 'asset/daun.png');
+		this.load.spritesheet('coin', 'asset/coin.png',34,41);
+       this.load.image('overlay', 'asset/starpertama/overlay.png');
+ 	
+
+this.load.image('pjktnah', 'asset/starpertama/pjktnah.png');
+this.load.image('airbulat', 'asset/starpertama/airbulat.png');
+this.load.image('lbelakang', 'asset/starpertama/layarblakang.png');
+this.load.image('pijakatas', 'asset/starpertama/pijakatas.png');
+this.load.image('air', 'asset/starpertama/air.png');
+this.load.image('air1', 'asset/starpertama/air1.png');
+this.load.image('pjak', 'asset/starpertama/pjak.png');
+
+this.load.image('pijakan', 'asset/starpertama/pijakan.png');
+this.load.image('pijak', 'asset/starpertama/pijak.png');
+this.load.image('btu2', 'asset/starpertama/btu2.png');
+this.load.image('btupjk', 'asset/starpertama/btupjk.png');
+this.load.image('pijak6', 'asset/starpertama/pijak6.png');
+	this.load.spritesheet('buttonstart', 'asset/play.png',200, 66);
+        this.load.spritesheet('button-lagu', 'asset/lagu.png',200, 66);
+        this.load.spritesheet('button-music', 'asset/music.png',300, 66);
+     // this.load.spritesheet('mario', 'asset/mariospritesheet-small.png',35,78); 
+	 this.load.spritesheet('mario', 'asset/player.png', 36, 120); 
+        this.load.image('ground', 'asset/2048x48-ground.png');
+        this.load.image('clouds', 'asset/clouds.jpg');
+       
+    //button 
+		this.load.image('ltr', 'asset/buttons-big/ltr.png');
+        this.load.spritesheet('restart_button', 'asset/buttons-big/restart_button.png',70,77);
+		  this.load.spritesheet('selectlevel_button', 'asset/buttons-big/selectlevel_button.png',70,77);
+      
+        this.load.spritesheet('buttonvertical', 'asset/buttons-big/btnkr.png',70,40);
+        this.load.spritesheet('buttonhorizontal', 'asset/buttons-big/btnkn.png',70,40);
+        this.load.spritesheet('buttondiagonal', 'asset/buttons-big/button-diagonal.png',64,64);
+        this.load.spritesheet('buttonjump', 'asset/buttons-big/btnatas.png',41,70);
+	//this.load.image('jam', 'asset/buttons-big/jam.png');
+//menuberanda/Home
+	 this.load.image("menubutton", "asset/menuberanda/menubutton.png");
+         this.load.image("menuberanda", "asset/menuberanda/menuberanda.png");
+         this.load.image("resetgame", "asset/menuberanda/resetgame.png");
+         this.load.image("thankyou", "asset/menuberanda/thankyou.png");
+	 this.load.image("lagu", "asset/menuberanda/lagu.png");
+         this.load.image("pause", "asset/menuberanda/pause.png");
+         this.load.image("menukembali", "asset/menuberanda/menukembali.png");
+this.load.image("lyrkmbli", "asset/buttons-big/lyrkmbli.png");
+this.load.image('petaaceh', 'asset/peta/petaaceh.png');
+
+
+//lagu
+
+ this.load.audio("lompat","asset/lagu/jump.wav");
+ this.load.audio("audio-button","asset/lagu/audio-button.mp3");
+ this.load.audio("music","asset/lagu/laguaceh.mp3"); 
+//gdung
+ this.load.image('gedung', 'asset/gedung/gedung.png');
+ 	   
+    },
+    create:function(){
+      this.state.start('MainMenu'); 
+    }
+};

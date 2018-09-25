@@ -1,0 +1,26 @@
+//this.state.add('menuberanda',ACEH.menuberanda);
+
+ACEH.peta = function(game){
+
+};
+ACEH.peta .prototype={
+    create:function(){
+
+//this.player();
+this.Menupeta(); 
+},
+Menupeta:function(){
+
+this.add.sprite(0,0, 'petaaceh');
+        this.add.button(250,100, 'gedung',this.playGame, this,1,0,2);
+
+
+},
+  lagu:function(){
+
+          music = this.add.audio("audio-button");
+          music.play();
+}
+
+};
+   

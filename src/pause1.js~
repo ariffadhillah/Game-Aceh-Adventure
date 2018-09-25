@@ -1,0 +1,21 @@
+ACEH.pause1 = function(game){};
+var pic, cropRect;
+ACEH.pause1.prototype={
+    pic = this.add.sprite(this.world.centerX, 550, 'trsi');
+
+    pic.anchor.setTo(0.5, 1);
+
+    cropRect = new Phaser.Rectangle(0, 0, pic.width, 0);
+
+var tween = this.add.tween(cropRect).to( { height: pic.height }, 3000, Phaser.Easing.Bounce.Out, false, 0, 1000, true);
+
+    pic.crop(cropRect);
+
+    tween.start();
+ 
+    },  
+    update:function(){
+        tes.updateCrop();
+    }
+	
+};   

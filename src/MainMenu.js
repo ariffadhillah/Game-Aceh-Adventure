@@ -1,0 +1,69 @@
+ACEH.MainMenu = function(game){};
+ACEH.MainMenu.prototype={
+    create:function(){
+	 
+	this.add.sprite(0,0, 'background');
+	this.MenuStart();
+        this.suara();
+	},  
+    
+	MenuStart:function(){
+  	var buttonStart = this.add.button(270, 410, 'buttonstart', this.playGame, this, 1, 0, 2);
+		buttonStart.anchor.set(1,1);
+		buttonStart.x = this.world.width+buttonStart.width+20;
+		this.add.tween(buttonStart).to({x: 270}, 410, Phaser.Easing.Exponential.Out, true);
+    	var bantuan = this.add.button(340,430, 'tmlbtn',this.bantuan,this,1,0,2);
+		bantuan.anchor.set(1,1);
+		bantuan.x = this.world.width+bantuan.width+20;
+		this.add.tween(bantuan).to({x:340},430, Phaser.Easing.Exponential.Out, true);
+
+	var keluar = this.add.button(189,430, 'keluar',this.exitButtonClick,this,1,0,2);
+		keluar.anchor.set(1,1);
+		keluar.x = this.world.width+keluar.width+20;
+		this.add.tween(keluar).to({x:189},430, Phaser.Easing.Exponential.Out, true);
+
+	},
+	  
+    playGame:function(){
+   		this.state.start('level1');
+			music = this.add.audio("mn_clck");
+   			music.play();
+    	},
+    
+    bantuan:function(){
+    	this.state.start('bantuan');
+    		music = this.add.audio("mn_clck");
+    		music.play();
+    },
+
+  	suara:function(){
+		this.soundButton = this.game.add.sprite(420, 20, 'btnlagu');
+		this.soundButton.inputEnabled = true;
+		this.soundButton.fixedToCamera = true;
+			if (!this.game.sound.mute) {
+  
+    	this.soundButton.tint = 16777215;
+			} else {
+
+    this.soundButton.tint = 16711680;
+		}
+	this.soundButton.events.onInputUp.add(function() {
+    		if (!this.game.sound.mute) {
+        		this.game.sound.mute = true;
+        		this.soundButton.tint = 16711680;
+    		}else if (!this.game.sound.mute){
+        		this.game.sound.mute = false;
+        		this.soundButton.tint = 16777215;
+    		} 
+     
+		}, this);
+	},
+	exitButtonClick: function () { 
+	   if (confirm("Yakin Mau Keluar ?"))
+ 			{ navigator.app.exitApp();    
+	 	}
+
+	}
+
+};   
+

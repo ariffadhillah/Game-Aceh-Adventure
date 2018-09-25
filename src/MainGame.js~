@@ -1,0 +1,82 @@
+ACEH.MainGame = function(game){};
+
+var button;
+var popup;
+var tween;;
+var pw = 100;
+var ph = 100;
+ACEH.MainGame.prototype = {
+
+     preload:function(){
+        
+
+
+    this.load.spritesheet('button', 'asset/button_sprite_sheet.png', 0, 0);
+    this.load.image('background', 'asset/bubble-on.png');
+    this.load.image('close', 'asset/orb-red.png');
+},
+
+ create:function(){
+
+    this.stage.backgroundColor = '#4b0049';
+
+    button = this.add.button(180, 0, 'button');
+    button.input.useHandCursor = true;
+
+    //  You can drag the pop-up window around
+    popup = this.add.sprite(0, 0, 'background');
+    popup.alpha = 0.8;
+    popup.anchor.set(0.5);
+    popup.inputEnabled = true;
+    popup.input.enableDrag();
+
+    //  Position the close button to the top-right of the popup sprite (minus 8px for spacing)
+    var pw = (popup.width / 2) ;
+    var ph = (popup.height / 2);
+
+    //  And click the close button to close it down again
+    var closeButton = this.game.make.sprite(pw, -ph, 'close');
+    closeButton.inputEnabled = true;
+    closeButton.input.priorityID = 1;
+    closeButton.input.useHandCursor = true;
+    closeButton.events.onInputDown.add(closeWindow, this);
+
+    //  Add the "close button" to the popup window image
+    popup.addChild(closeButton);
+
+    //  Hide it awaiting a click
+    popup.scale.set(0.1);
+
+},
+
+ openWindow:function() {
+
+    if ((tween !== null && tween.isRunning) || popup.scale.x === 1)
+    {
+        return;
+    }
+    
+    //  Create a tween that will pop-open the window, but only if it's not already tweening or open
+    tween = this.game.add.tween(popup.scale).to( { x: 1, y: 1 }, 10, Phaser.Easing.Elastic.Out, true);
+
+},
+
+closeWindow:function() {
+
+    if (tween && tween.isRunning || popup.scale.x === 0.1)
+    {
+        return;
+    }
+
+    //  Create a tween that will close the window, but only if it's not already tweening or closed
+    tween = this.game.add.tween(popup.scale).to( { x: 0.1, y: 0.1 }, 50, Phaser.Easing.Elastic.In, true);
+
+},
+
+render:function () {
+
+    this.game.debug.text("Click to open window + drag + close", 32, 32);
+
+}
+
+};

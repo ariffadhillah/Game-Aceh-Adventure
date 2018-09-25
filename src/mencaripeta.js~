@@ -1,0 +1,274 @@
+
+ACEH.mencaripeta = function(game){
+
+};
+var left=false,right=false, duck = false, lompat = false;
+//var btnlompat,btnjlnkanan,btnjlnkiri,pintusatu, player;
+var nextJump = 0;
+var lompat = false;
+var left=false; 
+var right=false;
+var duck= false;
+
+//var left=false,right=false, duck = false, lompat = false;
+var btnlompat,btnjlnkanan,btnjlnkiri,pintusatu, player, platforms,menugame,mnubutton, menu,lompat,jam,lyrkmbli,huruf,airgelumbung;
+
+ACEH.mencaripeta.prototype = {
+create:function(){
+this.physics.startSystem(Phaser.Physics.ARCADE);
+//this.physics.startSystem(Phaser.Physics.P2JS); 
+this.game.world.setBounds(0, 0, 900, 580);
+clouds = this.add.tileSprite(0,0,1000,580,'lbelakang');
+//ACEH.testplayer;
+huruf = this.add.group();
+huruf.enableBody = true;
+
+
+airgelumbung = this.add.group();
+airgelumbung.enableBody = true;
+var air = airgelumbung.create( 280, 550, 'air');
+
+//var air = airgelumbung.sprite();
+    mulai = this.add.group();
+    mulai.enableBody = true;
+    mulai.fixedToCamera = true;
+  //  for (var i = 0; i < 1; i++)
+   // {
+        var lanjut = mulai.create( 800, 163, 'lanjut');
+     //   lanjut.body.gravity.y = 300;
+       // star.body.bounce.y = 0.7 + Math.random() * 0.2;
+  //  }
+
+	
+this.pijakan();
+this.player();
+this.menusamping();
+this.waktu();
+
+this.gelumbung();
+//this.terjatuh();
+
+},
+
+update:function(){
+    
+
+this.game.physics.arcade.collide(player, platforms);
+this.game.physics.arcade.collide(mulai, platforms);
+this.game.physics.arcade.collide(airgelumbung, platforms);
+this.game.physics.arcade.overlap(player, mulai,this.next,null, this);
+this.game.physics.arcade.overlap(player,airgelumbung,this.terjatuh,null, this);
+  player.body.velocity.x = 0;
+
+    if (left && !duck)
+    {
+		//player.scale.x = -1;
+        //player.body.moveLeft(300);
+        //player.animations.play('left');
+        //  Move to the left
+        player.body.velocity.x = -150;
+
+        player.animations.play('left');
+    }
+    else if (right && !duck)
+    {
+		
+       player.body.velocity.x = 150;
+
+       player.animations.play('right');
+    }
+    else
+    {
+        
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    
+    
+    if (lompat && !left && !right)
+    {
+		
+        player.body.velocity.y = -300;
+    }
+},
+
+menusamping: function() {
+menuGroup = this.add.group();
+         
+          var menuButton = this.add.button(15, 260, "menubutton", this.toggleMenu,this,0,1,0,1);
+          menuButton.anchor.set(0.5);
+          menuGroup.add(menuButton);
+          menuButton.fixedToCamera = true;
+          var menuberanda = this.add.image(-62,  300, "menuberanda", function(){});
+          menuberanda.anchor.set(0.5);
+          menuGroup.add(menuberanda); 
+ 	  menuberanda.fixedToCamera = true;
+	  var lagu= this.add.button(-33,  140, "lagu", function(){});
+          lagu.anchor.set(0.5);
+          menuGroup.add(lagu);
+	  lagu.fixedToCamera = true;
+
+	  var pause= this.add.button(-100,  190, "pause", this.pause,this,0,1,0,1);
+          pause.anchor.set(0.5);
+          menuGroup.add(pause);
+	  pause.fixedToCamera = true;
+
+          var menukembali= this.add.button(-70,  50, "menukembali", this.next,this,0,1,0,1);
+          menukembali.anchor.set(0.5);
+          menuGroup.add(menukembali);
+	  menukembali.fixedToCamera = true;
+},
+pijakan: function(){
+platforms = this.add.group();
+    	platforms.enableBody = true;
+	pjak= platforms.create(0,550, 'pjak');
+    	pjak.body.immovable = true;
+    	pijak= platforms.create(570,550, 'pijak');
+    	pijak.body.immovable = true;
+	pijakatas = platforms.create(835,255, 'pijakatas');
+	pijakatas.body.immovable = true;
+	pijak6 = platforms.create(325,460, 'pijak6');
+	pijak6.body.immovable = true;
+	pijak6 = platforms.create(465,475, 'pijak6');
+	pijak6.body.immovable = true;
+	pijak6 = platforms.create(765,460, 'pijak6');
+	pijak6.body.immovable = true;
+	pjktnah = platforms.create(800,370, 'pjktnah');
+	pjktnah.body.immovable = true;
+
+},
+player: function() {
+	player = this.add.sprite(32, this.world.height - 150, 'mario');
+	
+    
+	this.physics.arcade.enable(player);
+
+   
+    player.body.bounce.y = 0.2;
+	
+    player.body.gravity.y = 1500;
+    player.body.collideWorldBounds = true;
+	this.physics.arcade.enable(player);
+   	 player.animations.add('right', [0, 1, 2, 3], 10, true);
+   	 player.animations.add('left', [5, 6, 7, 8], 10, true);
+     this.camera.follow(player);
+	btnlompat = this.add.button(350,490,'buttonjump',null,this);
+	 btnlompat.fixedToCamera = true;
+	 btnlompat.events.onInputOver.add(function(){lompat=true;});
+     btnlompat.events.onInputOut.add(function(){lompat=false;});
+     btnlompat.events.onInputDown.add(function(){lompat=true;});
+     btnlompat.events.onInputUp.add(function(){lompat=false;});
+    btnjlnkanan = this.add.button(100, 490, 'buttonhorizontal',null, this);
+	btnjlnkanan.fixedToCamera = true;
+	btnjlnkanan.events.onInputOver.add(function(){right=true;});
+    btnjlnkanan.events.onInputOut.add(function(){right=false;});
+    btnjlnkanan.events.onInputDown.add(function(){right=true;});
+    btnjlnkanan.events.onInputUp.add(function(){right=false;});
+  	btnjlnkiri = this.add.button(30, 490, 'buttonvertical',null, this);
+	btnjlnkiri.fixedToCamera = true;
+    btnjlnkiri.events.onInputOver.add(function(){left=true;});
+    btnjlnkiri.events.onInputOut.add(function(){left=false;});
+    btnjlnkiri.events.onInputDown.add(function(){left=true;});
+    btnjlnkiri.events.onInputUp.add(function(){left=false;});	
+},
+next:function (player,mulai) {
+this.state.start('');
+},
+
+
+pause:function () {
+this.game.paused = true;
+var pausedText = this.add.text(0,0, '',this._fontStyle);
+	this.input.onDown.add(function(){
+			pausedText.destroy();
+			this.game.paused = false;
+		}, this);
+},
+waktu: function(){
+this.waktu = 30;
+huruf = this.add.text(150, 10,'Perjalan petualangan dimulai', { font: "bold 9pt Ubuntu", fill: "white", align: "center" } );
+huruf.fixedToCamera = true;
+huruf = this.add.text(200, 27,this.waktu+'d', { font: "bold 14pt Arial", fill: "white", align: "center" } );
+huruf.fixedToCamera = true;
+ 
+this.currentTimer = this.time.create();
+		this.currentTimer.loop(Phaser.Timer.SECOND, function() { this.waktu--;
+			if(this.waktu ) {
+			huruf.setText(this.waktu + 'd'  );
+			}
+			else {
+			huruf.setText('0d ');
+				//this.state.start();
+			lyrkmbli = mulai.create( 200,300,'');
+			this.game.paused = true;
+			}
+		}, this);
+		this.currentTimer.start();
+	},
+
+
+
+terjatuh:function(player,airgelumbung){
+ 
+ menu = this.add.sprite( 85, 100, 'overlay');
+ menu.fixedToCamera = true;
+ 
+var buttonRestart = this.add.button(100,100, 'restart_button',this.playGame, this,1,0,2);
+buttonRestart.fixedToCamera = true;
+buttonRestart.anchor.set(1,1);
+			
+	
+},
+playGame:function(){
+	this.state.start('loding');
+},
+gelumbung:function(){
+
+gelumbung1 = this.add.emitter(400, 600);
+
+    	gelumbung1.width = 320;
+	gelumbung1.makeParticles('airbulat');
+	gelumbung1.minParticleSpeed.set(30, 40);
+   	gelumbung1.maxParticleSpeed.set(10, 80);
+	gelumbung1.setRotation(0, 0);
+ 	gelumbung1.setAlpha(0.3, 0.8);
+    	gelumbung1.setScale(0.5, 0.5, 1, 1);
+    	gelumbung1.gravity = -200;
+	gelumbung1.start(false, 800, 30);
+var air1 = airgelumbung.create( 700, 550, 'air1');
+gelumbung2 = this.add.emitter(790, 600);
+gelumbung2.width = 180;
+	gelumbung2.makeParticles('airbulat');
+	gelumbung2.minParticleSpeed.set(30, 40);
+   	gelumbung2.maxParticleSpeed.set(10, 80);
+	gelumbung2.setRotation(0, 0);
+ 	gelumbung2.setAlpha(0.3, 0.8);
+    	gelumbung2.setScale(0.5, 0.5, 1, 1);
+    	gelumbung2.gravity = -200;
+	gelumbung2.start(false, 800, 30);
+},
+toggleMenu:function (){
+music = this.add.audio("audio-button");
+        music.play();
+    if(menuGroup.x == 0){
+          var menuTween = this.add.tween(menuGroup).to({
+               x: 100     
+          }, 400, Phaser.Easing.Bounce.Out, true);
+     }
+
+     if(menuGroup.x == 100){
+          var menuTween = this.add.tween(menuGroup).to({
+               x: 0    
+          }, 350, Phaser.Easing.Bounce.Out, true);     
+     }
+
+     }
+ 
+};
+
+//tambahkan fungsi gambar dan button dan untuk setengah gambar, aplikasi selesai tahap pertama/ tinggal setting gambarnya.
+
+
+
+

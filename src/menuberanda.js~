@@ -1,0 +1,49 @@
+ACEH.menuberanda = function(game){};
+
+var menuGroup;
+ACEH.menuberanda.prototype = {
+ create:function() {
+ this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+          var title = this.add.sprite(10 , 60, "gametitle");
+          title.anchor.set(0.5); 
+          var grid = this.add.sprite(10, 130, "gridedition");
+          grid.anchor.set(0.5);
+          var playButton = this.add.button(10,  100, "playbutton", function(){});
+          playButton.anchor.set(0.5);
+          
+          var menuButton = this.add.button(10,  30, "menubutton" );
+          menuButton.anchor.set(0.5);
+          
+          var resetGame = this.add.button(10, 50, "resetgame", function(){});
+          resetGame.anchor.set(0.5);
+          
+          var thankYou = this.add.button(10, 130, "thankyou", function(){});
+          thankYou.anchor.set(0.5);
+                  
+       
+},
+
+
+  
+toggleMenu:function (){
+    if(menuGroup.y == 0){
+          var menuTween = this.add.tween(menuGroup).to({
+               y: -180     
+          }, 500, Phaser.Easing.Bounce.Out, true);
+     }
+     if(menuGroup.y == -180){
+          var menuTween = game.add.tween(menuGroup).to({
+               y: 0    
+          }, 500, Phaser.Easing.Bounce.Out, true);     
+     }
+     }
+
+};
+
+
+
+
+
+
+

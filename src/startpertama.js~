@@ -1,0 +1,149 @@
+ACEH.startpertama = function(game){};
+///button
+
+var left=false;
+var right=false;
+var duck = false;
+var lompat = false;
+var btnlompat;
+var btnjlnkanan;
+var btnjlnkiri;
+var pintusatu;
+var player; 
+var platforms;
+var stars;
+ACEH.startpertama.prototype = {
+create:function(){
+  
+this.physics.startSystem(Phaser.Physics.ARCADE);
+this.game.world.setBounds(0, 0, 700, 700);
+	
+	
+
+
+clouds = this.add.tileSprite(0,0,2048,600,'clouds');
+//pintusatu = this.add.sprite(410,220,'pintusatu');
+ 
+    platforms = this.add.group();
+    platforms.enableBody = true;
+
+    ground = platforms.create(0, this.world.height - 45, 'ground');
+    ground.body.immovable = true;
+
+   
+    player = this.add.sprite(32, this.world.height - 150, 'mario');
+
+    this.physics.arcade.enable(player);
+    player.body.bounce.y = 0.2;
+    player.body.gravity.y = 300;
+    player.body.collideWorldBounds = true;
+
+
+
+player.animations.add('walk', [1,2,3,4], 10, true);  
+    player.animations.add('duck', [11], 0, true);
+    player.animations.add('duckwalk', [11,12], 3, true);
+this.camera.follow(player);
+btnlompat = this.add.button(350,500,'buttonjump', null,this,0,1,0,1);
+btnlompat.fixedToCamera = true;
+btnlompat.events.onInputOver.add(function(){lompat=true;});
+btnlompat.events.onInputOut.add(function(){lompat=false;});
+btnlompat.events.onInputDown.add(function(){lompat=true;});
+btnlompat.events.onInputUp.add(function(){lompat=false;});
+btnjlnkanan = this.add.button(0, 300, 'buttonhorizontal', null, this,0,1,0,1);
+
+btnjlnkanan.fixedToCamera = true;
+btnjlnkanan.events.onInputOver.add(function(){left=true;});
+btnjlnkanan.events.onInputOut.add(function(){left=false;});
+btnjlnkanan.events.onInputDown.add(function(){left=true;});
+btnjlnkanan.events.onInputUp.add(function(){left=false;});
+btnjlnkiri = this.add.button(120, 300, 'buttonhorizontal', null, this,0,1,0,1);
+
+btnjlnkiri.fixedToCamera = true;
+btnjlnkiri.events.onInputOver.add(function(){right=true;});
+btnjlnkiri.events.onInputOut.add(function(){right=false;});
+btnjlnkiri.events.onInputDown.add(function(){right=true;});
+btnjlnkiri.events.onInputUp.add(function(){right=false;});
+
+
+
+stars = this.add.group();
+
+  
+    stars.enableBody = true;
+
+    
+    for (var i = 0; i < 1; i++)
+    {
+     
+        var star = stars.create(i * 70, 0, 'star');
+
+     
+        star.body.gravity.y = 300;
+
+      
+        star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    }
+
+
+
+
+
+
+
+
+
+
+
+},
+ update:function(){
+//this.physics.arcade.overlap(player,platforms);
+
+this.game.physics.arcade.collide(player, platforms);
+this.game.physics.arcade.collide(stars, platforms);
+this.game.physics.arcade.overlap(player, stars,this.next, null, this, 0,1,0,1);
+  
+
+
+
+ player.body.velocity.x = 0;
+ 
+         
+    if (left && !duck)
+    {
+        player.body.velocity.x = -50;
+
+        player.animations.play('walk');
+    }
+    else if (right && !duck)
+    {
+         player.body.velocity.x = 100;
+
+        player.animations.play('walk');
+    }
+    else
+    {
+        //  Stand still
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    
+    if (lompat && !duck ){
+       
+        player.body.velocity.y = -50;
+    }
+
+
+},
+
+
+
+next:function (player,star) {
+ 
+ this.state.start('MainMenu');
+//this.game.paused = true;
+
+}
+
+};
