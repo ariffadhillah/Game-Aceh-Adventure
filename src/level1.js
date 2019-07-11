@@ -105,7 +105,7 @@ ACEH.level1.prototype = {
        			player.animations.play('walk');
 
     			}
-    			else if (right && !walk)
+    			else if (right && !duck)
     			{
 		  
 			       player.body.velocity.x = 200;
