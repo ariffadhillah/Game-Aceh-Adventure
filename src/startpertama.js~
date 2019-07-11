@@ -115,7 +115,7 @@ this.game.physics.arcade.overlap(player, stars,this.next, null, this, 0,1,0,1);
 
         player.animations.play('walk');
     }
-    else if (right && !duck)
+    else if (right && !walk)
     {
          player.body.velocity.x = 100;
 
